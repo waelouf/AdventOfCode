@@ -1,19 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
-using System;
-using System.Linq;
-public class Puzzle1 
-{
-    public int Solve()
-    {
-       int currentCalories = 0;
-       int maxCalories = 0;
+
+public class Puzzle1Part2 {
+    public int Solve() {
+        var hash = new SortedSet<int>();
 
         var elvesLines = Puzzle1Input.stringInput.Split(Environment.NewLine);
-       
+
+        int currentCalories = 0;
+
         foreach(string calory in elvesLines){
             if(string.IsNullOrWhiteSpace(calory)){
-                maxCalories = Math.Max(currentCalories, maxCalories);
+                hash.Add(currentCalories);
                 currentCalories = 0;
             }
             else {
@@ -22,6 +19,8 @@ public class Puzzle1
             }
         }
 
-        return maxCalories;
+        int top3Calories = hash.OrderDescending().Take(3).Sum();
+        
+        return top3Calories;
     }
 }
